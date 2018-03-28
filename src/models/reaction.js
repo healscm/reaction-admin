@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { find, detail } from '../services/reaction';
+import { find, detail, update } from '../services/reaction';
 
 export default {
     namespace: 'reaction',
@@ -54,6 +54,16 @@ export default {
                     payload: response.data,
                 });
                 callback && callback();
+            } else {
+                message.error(response.data);
+            }
+        },
+        *update({ payload }, { call }) {
+            payload.data.doctor_plan = payload.data.doctor_plan.map((item) => (item.content)); // eslint-disable-line
+            payload.data.serious_symptom = payload.data.serious_symptom.map((item) => (item.content)); // eslint-disable-line
+            const response = yield call(update, payload);
+            if (response.success) {
+                message.success('保存成功');
             } else {
                 message.error(response.data);
             }

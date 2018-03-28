@@ -11,3 +11,7 @@ export async function find(params) {
 export async function detail(_id) {
     return get(`${URL_PREFIX}/detail_reaction/${_id}`);
 }
+
+export async function update(params) {
+    return post(`${URL_PREFIX}/update_reaction`, params);
+}

@@ -64,10 +64,14 @@ export default class ReactionEditor extends PureComponent {
             validateFieldsAndScroll((error, values) => {
                 if (!error) {
                     // submit the values
-                    // console.log(values);
+                    const newValues = {
+                        data: { ...values },
+                        _id: detail._id,
+                    };
+                    console.log(newValues);
                     dispatch({
-                        type: 'form/submitAdvancedForm',
-                        payload: values,
+                        type: 'reaction/update',
+                        payload: newValues,
                     });
                 }
             });

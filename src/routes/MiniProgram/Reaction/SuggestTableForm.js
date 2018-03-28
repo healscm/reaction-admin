@@ -8,8 +8,21 @@ export default class SuggestTableForm extends TableForm {
             {
                 title: 'ID',
                 dataIndex: 'id',
-                key: 'addAt',
                 width: '80px',
+                render: (text, record) => {
+                    if (record.editable) {
+                        return (
+                            <Input
+                                value={text}
+                                onChange={e => this.handleFieldChange(e, 'id', record._id)}
+                                onBlur={e => this.saveRow(e, record._id)}
+                                onKeyPress={e => this.handleKeyPress(e, record._id)}
+                                placeholder="请输入建议ID"
+                            />
+                        );
+                    }
+                    return text;
+                },
             },
             {
                 title: '建议内容',

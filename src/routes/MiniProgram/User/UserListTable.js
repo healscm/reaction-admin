@@ -9,6 +9,14 @@ export default class UserListTable extends StandardTable {
     createColumns = () => {
         return [
             {
+                title: '头像',
+                dataIndex: 'avatarUrl',
+                width: '36px',
+                render: (text, record) => (
+                    <img src={text} alt={record.nickName} style={{ width: '36px', height: '36px' }} />
+                ),
+            },
+            {
                 title: '昵称',
                 dataIndex: 'nickName',
             },
