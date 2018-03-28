@@ -28,7 +28,7 @@ export default class ReactionList extends PureComponent {
         this.handleSearch();
     }
 
-    handleStandardTableChange = (pagination/* , filtersArg, sorter */) => {
+    handleTableChange = (pagination/* , filtersArg, sorter */) => {
         const { dispatch, reaction: { formValues } } = this.props;
         // const filters = Object.keys(filtersArg).reduce((obj, key) => {
         //     const newObj = { ...obj };
@@ -53,6 +53,13 @@ export default class ReactionList extends PureComponent {
         });
     }
 
+    handleTableRemove = (reactionId) => {
+        this.props.dispatch({
+            type: 'reaction/remove',
+            payload: reactionId,
+        });
+    }
+
     handleFormReset = () => {
         const { form, dispatch } = this.props;
         form.resetFields();
@@ -73,12 +80,10 @@ export default class ReactionList extends PureComponent {
                 ...fieldsValue,
                 fields: FIND_FIELDS,
             };
-            console.log('1111111');
             if (!e) {
                 values.currentPage = current;
                 values.pageSize = pageSize;
             }
-            console.log(values);
             dispatch({
                 type: 'reaction/find',
                 payload: values,
@@ -121,7 +126,8 @@ export default class ReactionList extends PureComponent {
                         <ReactionListTable
                             loading={isLoading}
                             data={listData}
-                            onChange={this.handleStandardTableChange}
+                            onChange={this.handleTableChange}
+                            onRemove={this.handleTableRemove}
                         />
                     </div>
                 </Card>

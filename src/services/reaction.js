@@ -15,3 +15,7 @@ export async function detail(_id) {
 export async function update(params) {
     return post(`${URL_PREFIX}/update_reaction`, params);
 }
+
+export async function remove(_id) {
+    return get(`${URL_PREFIX}/remove_reaction/${_id}`);
+}

@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { find, detail, update } from '../services/reaction';
+import { find, detail, update, remove } from '../services/reaction';
 
 export default {
     namespace: 'reaction',
@@ -68,6 +68,18 @@ export default {
                 message.error(response.data);
             }
         },
+        *remove({ payload }, { call, put }) {
+            const response = yield call(remove, payload);
+            if (response.success) {
+                yield put({
+                    type: 'removeData',
+                    payload,
+                });
+                message.success('删除成功');
+            } else {
+                message.error(response.data);
+            }
+        },
         *clearDetail(_, { put }) {
             yield put({
                 type: 'setDetail',
@@ -90,7 +102,6 @@ export default {
             };
         },
         setListData(state, { payload }) {
-            console.log(payload);
             return {
                 ...state,
                 listData: { ...payload },
@@ -114,6 +125,17 @@ export default {
             return {
                 ...state,
                 detail: { ...payload },
+            };
+        },
+        removeData(state, { payload }) {
+            const { list } = state.listData;
+            const newList = list.filter(item => item._id !== payload);
+            return {
+                ...state,
+                listData: {
+                    ...state.listData,
+                    list: newList,
+                },
             };
         },
     },
