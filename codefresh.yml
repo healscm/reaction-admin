@@ -1,0 +1,65 @@
+version: '1.0'
+
+steps:
+  build_image:
+    type: build
+    title: Build Docker Image
+    description: Build Docker Image
+    dockerfile: pipeline/Dockerfile
+    image_name: ${{APP_NAME}}/${{CF_BRANCH_TAG_NORMALIZED}}
+    tag: ${{CF_REVISION}}
+    build_arguments:
+      - force-rm
+    fail_fast: true
+    when:
+      condition:
+        all:
+          noSkipCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "skip ci") == false'
+          branch: 'match("${{CF_BRANCH}}", "^(release\/.*)|(v\d+.*)", true)'
+
+  push_image:
+    type: push
+    title: Push image to registry
+    description: Push image to registry
+    candidate: ${{build_image}}
+    tag: '${{CF_REVISION}}'
+    registry: aliyun
+    fail_fast: true
+    when:
+      condition:
+        all:
+          noSkipCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "skip ci") == false'
+          branch: 'match("${{CF_BRANCH}}", "^(release\/.*)|(v\d+.*)", true)'
+
+  # unit_tests:
+  #   image: ${{build_image}}
+  #   working_directory: ${{IMAGE_WORK_DIR}}
+  #   fail-fast: false
+  #   commands:
+  #     - npm install
+  #     - cp ./pipeline/roles/unittest/config.json ./config/config.json
+  #     - npm run test-local
+
+  determine_env:
+    description: Determine environment
+    title: Determine environment
+    image: alpine:latest
+    commands:
+      - echo NAMESPACE=$([[ $(echo "${{CF_BRANCH}}" | grep -Eo "^v[0-9]+\.") ]] && echo "production" || echo "staging") >> ${{CF_VOLUME_PATH}}/env_vars_to_export
+      - echo IMAGE_NAME=registry.qtclinics.com/${{APP_NAME}}/${{CF_BRANCH_TAG_NORMALIZED}} >> ${{CF_VOLUME_PATH}}/env_vars_to_export
+
+  deploy_to_k8s:
+    title: Deploy to k8s
+    image: xuhao/plugin-helm:latest
+    environment:
+      - CHART_NAME=pipeline/chart
+      - RELEASE_NAME=${{APP_NAME}}-${{NAMESPACE}}
+      - KUBE_CONTEXT=kubernetes-admin@kubernetes
+      - custom_image_repository=${{IMAGE_NAME}}
+      - custom_image_tag=${{CF_REVISION}}
+    fail_fast: true
+    when:
+      condition:
+        all:
+          noSkipCiInCommitMessage: 'includes(lower("${{CF_COMMIT_MESSAGE}}"), "skip ci") == false'
+          branch: 'match("${{CF_BRANCH}}", "^(release\/.*)|(v\d+.*)", true)'

@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "sanbao-admin.name" . }}
+  labels:
+    app: {{ template "sanbao-admin.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ if eq .Release.Namespace "production" }}{{ .Values.replicaCount | mul 2 }}{{ else }}{{ .Values.replicaCount }}{{ end }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "sanbao-admin.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.internalPort }}
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health-check
+          #     port: {{ .Values.service.internalPort }}
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 30
+          #   timeoutSeconds: 5
+          # readinessProbe:
+          #   httpGet:
+          #     path: /health-check
+          #     port: {{ .Values.service.internalPort }}
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 30
+          #   timeoutSeconds: 5
+          resources:
+      imagePullSecrets:
+        - name: {{ .Values.image.pullSecrets }}

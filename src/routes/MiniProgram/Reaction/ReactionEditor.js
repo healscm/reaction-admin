@@ -55,7 +55,7 @@ export default class ReactionEditor extends PureComponent {
         if (this.state.width !== width) {
             this.setState({ width });
         }
-    }
+    };
     render() {
         const { submitting } = this.state;
         const { form, dispatch, reaction: { detail } } = this.props;
@@ -93,7 +93,11 @@ export default class ReactionEditor extends PureComponent {
                     return null;
                 }
                 return (
-                    <li key={key} className={styles.errorListItem} onClick={() => scrollToField(key)}>
+                    <li
+                        key={key}
+                        className={styles.errorListItem}
+                        onClick={() => scrollToField(key)}
+                    >
                         <Icon type="cross-circle-o" className={styles.errorIcon} />
                         <div className={styles.errorMessage}>{errors[key][0]}</div>
                         <div className={styles.errorField}>{fieldLabels[key]}</div>
@@ -124,10 +128,10 @@ export default class ReactionEditor extends PureComponent {
                     <Form layout="vertical" hideRequiredMark>
                         <Form.Item label={fieldLabels.name}>
                             {getFieldDecorator('name', {
-                                rules: [{ required: true, message: `请输入${fieldLabels.name}` }],
-                            })(
-                                <Input placeholder={`请输入${fieldLabels.name}`} />
-                            )}
+                                rules: [
+                                    { required: true, message: `请输入${fieldLabels.name}` },
+                                ],
+                            })(<Input placeholder={`请输入${fieldLabels.name}`} />)}
                         </Form.Item>
                         <Form.Item label={fieldLabels.des}>
                             {getFieldDecorator('des', {
@@ -138,9 +142,14 @@ export default class ReactionEditor extends PureComponent {
                         </Form.Item>
                         <Form.Item label={fieldLabels.summary}>
                             {getFieldDecorator('summary', {
-                                rules: [{ required: true, message: `请输入${fieldLabels.summary}` }],
+                                rules: [
+                                    { required: true, message: `请输入${fieldLabels.summary}` },
+                                ],
                             })(
-                                <TextArea rows={4} placeholder={`请输入${fieldLabels.summary}`} />
+                                <TextArea
+                                    rows={4}
+                                    placeholder={`请输入${fieldLabels.summary}`}
+                                />
                             )}
                         </Form.Item>
                     </Form>
@@ -152,12 +161,16 @@ export default class ReactionEditor extends PureComponent {
                 </Card>
                 <Card title="需要和医生沟通的应对方案" bordered={false}>
                     {getFieldDecorator('doctor_plan', {
-                        initialValue: Array.isArray(detail.doctor_plan) ? detail.doctor_plan : [],
+                        initialValue: Array.isArray(detail.doctor_plan)
+                            ? detail.doctor_plan
+                            : [],
                     })(<DoctorPlanTableForm />)}
                 </Card>
                 <Card title="出现以下情况及时就医" bordered={false}>
                     {getFieldDecorator('serious_symptom', {
-                        initialValue: Array.isArray(detail.serious_symptom) ? detail.serious_symptom : [],
+                        initialValue: Array.isArray(detail.serious_symptom)
+                            ? detail.serious_symptom
+                            : [],
                     })(<SeriousSymptomTableForm />)}
                 </Card>
                 <FooterToolbar style={{ width: this.state.footerWidth }}>

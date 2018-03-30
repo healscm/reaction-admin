@@ -2,6 +2,9 @@ import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import { routerRedux } from 'dva/router';
 import store from '../index';
+import { strToBase64 } from './utils';
+import { getItem, ACCESS_TOKEN } from '../utils/storage';
+import { CLIENT_SECRET, CLIENT_ID } from '../config';
 
 const codeMessage = {
     200: '服务器成功返回请求的数据。',
@@ -44,8 +47,10 @@ function checkStatus(response) {
  */
 function request(url, options = {}) {
     const defaultOptions = {
-        // credentials: 'include',
         method: 'GET',
+        headers: {
+            Authorization: `Bearer ${getItem(ACCESS_TOKEN)}`,
+        },
     };
     const newOptions = { ...defaultOptions, ...options };
     if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
@@ -55,7 +60,9 @@ function request(url, options = {}) {
                 'Content-Type': 'application/json; charset=utf-8',
                 ...newOptions.headers,
             };
-            newOptions.body = JSON.stringify(newOptions.body);
+            if (typeof newOptions.body === 'object') {
+                newOptions.body = JSON.stringify(newOptions.body);
+            }
         } else {
             // newOptions.body is FormData
             newOptions.headers = {
@@ -103,6 +110,18 @@ export function get(url) {
 
 export function post(url, body) {
     return request(url, {
+        body,
+        method: 'POST',
+    });
+}
+
+export function token(url, body) {
+    const idSecret = `${CLIENT_ID}:${CLIENT_SECRET}`;
+    return request(url, {
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: `Basic ${strToBase64(idSecret)}`,
+        },
         body,
         method: 'POST',
     });

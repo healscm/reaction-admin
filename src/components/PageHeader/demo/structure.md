@@ -5,23 +5,29 @@ title: Structure
 
 基本结构，具备响应式布局功能，主要断点为 768px 和 576px，拖动窗口改变大小试试看。
 
-````jsx
-import PageHeader from 'ant-design-pro/lib/PageHeader';
+```jsx
+import PageHeader from "ant-design-pro/lib/PageHeader";
 
-const breadcrumbList = [{
-  title: '面包屑',
-}];
+const breadcrumbList = [
+  {
+    title: "面包屑"
+  }
+];
 
-const tabList = [{
-  key: '1',
-  tab: '页签一',
-}, {
-  key: '2',
-  tab: '页签二',
-}, {
-  key: '3',
-  tab: '页签三',
-}];
+const tabList = [
+  {
+    key: "1",
+    tab: "页签一"
+  },
+  {
+    key: "2",
+    tab: "页签二"
+  },
+  {
+    key: "3",
+    tab: "页签三"
+  }
+];
 
 ReactDOM.render(
   <div>
@@ -36,9 +42,10 @@ ReactDOM.render(
       tabList={tabList}
       tabActiveKey="1"
     />
-  </div>
-, mountNode);
-````
+  </div>,
+  mountNode
+);
+```
 
 <style>
 #scaffold-src-components-PageHeader-demo-structure .code-box-demo {

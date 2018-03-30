@@ -14,12 +14,12 @@ iframe: 400
 
 Fixed to the footer.
 
-````jsx
-import FooterToolbar from 'ant-design-pro/lib/FooterToolbar';
-import { Button } from 'antd';
+```jsx
+import FooterToolbar from "ant-design-pro/lib/FooterToolbar";
+import { Button } from "antd";
 
 ReactDOM.render(
-  <div style={{ background: '#f7f7f7', padding: 24 }}>
+  <div style={{ background: "#f7f7f7", padding: 24 }}>
     <p>Content Content Content Content</p>
     <p>Content Content Content Content</p>
     <p>Content Content Content Content</p>
@@ -39,6 +39,7 @@ ReactDOM.render(
       <Button>Cancel</Button>
       <Button type="primary">Submit</Button>
     </FooterToolbar>
-  </div>
-, mountNode);
-````
+  </div>,
+  mountNode
+);
+```

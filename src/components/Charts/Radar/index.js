@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Chart, Tooltip, Geom, Coord, Axis } from 'bizcharts';
-import { Row, Col } from 'antd';
-import autoHeight from '../autoHeight';
-import styles from './index.less';
+import React, { Component } from "react";
+import { Chart, Tooltip, Geom, Coord, Axis } from "bizcharts";
+import { Row, Col } from "antd";
+import autoHeight from "../autoHeight";
+import styles from "./index.less";
 
 /* eslint react/no-danger:0 */
 @autoHeight()
 export default class Radar extends Component {
   state = {
-    legendData: [],
+    legendData: []
   };
 
   componentDidMount() {
@@ -21,7 +21,7 @@ export default class Radar extends Component {
     }
   }
 
-  getG2Instance = (chart) => {
+  getG2Instance = chart => {
     this.chart = chart;
   };
 
@@ -29,27 +29,27 @@ export default class Radar extends Component {
   getLengendData = () => {
     if (!this.chart) return;
     const geom = this.chart.getAllGeoms()[0]; // 获取所有的图形
-    const items = geom.get('dataArray') || []; // 获取图形对应的
+    const items = geom.get("dataArray") || []; // 获取图形对应的
 
-    const legendData = items.map((item) => {
+    const legendData = items.map(item => {
       // eslint-disable-next-line
       const origins = item.map(t => t._origin);
       const result = {
         name: origins[0].name,
         color: item[0].color,
         checked: true,
-        value: origins.reduce((p, n) => p + n.value, 0),
+        value: origins.reduce((p, n) => p + n.value, 0)
       };
 
       return result;
     });
 
     this.setState({
-      legendData,
+      legendData
     });
   };
 
-  handleRef = (n) => {
+  handleRef = n => {
     this.node = n;
   };
 
@@ -65,25 +65,25 @@ export default class Radar extends Component {
       .map(l => l.name);
 
     if (this.chart) {
-      this.chart.filter('name', val => filteredLegendData.indexOf(val) > -1);
+      this.chart.filter("name", val => filteredLegendData.indexOf(val) > -1);
       this.chart.repaint();
     }
 
     this.setState({
-      legendData,
+      legendData
     });
   };
 
   render() {
     const defaultColors = [
-      '#1890FF',
-      '#FACC14',
-      '#2FC25B',
-      '#8543E0',
-      '#F04864',
-      '#13C2C2',
-      '#fa8c16',
-      '#a0d911',
+      "#1890FF",
+      "#FACC14",
+      "#2FC25B",
+      "#8543E0",
+      "#F04864",
+      "#13C2C2",
+      "#fa8c16",
+      "#a0d911"
     ];
 
     const {
@@ -95,7 +95,7 @@ export default class Radar extends Component {
       tickCount = 4,
       padding = [35, 30, 16, 30],
       animate = true,
-      colors = defaultColors,
+      colors = defaultColors
     } = this.props;
 
     const { legendData } = this.state;
@@ -103,8 +103,8 @@ export default class Radar extends Component {
     const scale = {
       value: {
         min: 0,
-        tickCount,
-      },
+        tickCount
+      }
     };
 
     const chartHeight = height - (hasLegend ? 80 : 22);
@@ -129,30 +129,30 @@ export default class Radar extends Component {
             tickLine={null}
             grid={{
               lineStyle: {
-                lineDash: null,
+                lineDash: null
               },
-              hideFirstLine: false,
+              hideFirstLine: false
             }}
           />
           <Axis
             name="value"
             grid={{
-              type: 'polygon',
+              type: "polygon",
               lineStyle: {
-                lineDash: null,
-              },
+                lineDash: null
+              }
             }}
           />
           <Geom
             type="line"
             position="label*value"
-            color={['name', colors]}
+            color={["name", colors]}
             size={1}
           />
           <Geom
             type="point"
             position="label*value"
-            color={['name', colors]}
+            color={["name", colors]}
             shape="circle"
             size={3}
           />
@@ -170,7 +170,7 @@ export default class Radar extends Component {
                     <span
                       className={styles.dot}
                       style={{
-                        backgroundColor: !item.checked ? '#aaa' : item.color,
+                        backgroundColor: !item.checked ? "#aaa" : item.color
                       }}
                     />
                     <span>{item.name}</span>
@@ -178,7 +178,7 @@ export default class Radar extends Component {
                   <h6>{item.value}</h6>
                 </div>
               </Col>
-           ))}
+            ))}
           </Row>
         )}
       </div>

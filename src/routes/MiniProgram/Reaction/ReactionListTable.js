@@ -27,11 +27,12 @@ export default class ReactionListTable extends StandardTable {
                 width: '120px',
                 render: (text, record) => (
                     <div>
-                        <Link to={`/wechat/reaction-editor/${record._id}`}>
-                            编辑
-                        </Link>
+                        <Link to={`/wechat/reaction-editor/${record._id}`}>编辑</Link>
                         <Divider type="vertical" />
-                        <Popconfirm title="是否要删除此行数据？" onConfirm={() => this.props.onRemove(record._id)}>
+                        <Popconfirm
+                            title="是否要删除此行数据？"
+                            onConfirm={() => this.props.onRemove(record._id)}
+                        >
                             <a>删除</a>
                         </Popconfirm>
                     </div>

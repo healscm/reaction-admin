@@ -28,7 +28,7 @@ export default class UserList extends PureComponent {
         this.handleSearch();
     }
 
-    handleStandardTableChange = (pagination/* , filtersArg, sorter */) => {
+    handleStandardTableChange = (pagination /* , filtersArg, sorter */) => {
         const { dispatch, userList: { formValues } } = this.props;
         // const filters = Object.keys(filtersArg).reduce((obj, key) => {
         //     const newObj = { ...obj };
@@ -51,7 +51,7 @@ export default class UserList extends PureComponent {
             type: 'userList/find',
             payload: params,
         });
-    }
+    };
 
     handleFormReset = () => {
         const { form, dispatch } = this.props;
@@ -62,7 +62,7 @@ export default class UserList extends PureComponent {
                 fields: FIND_FIELDS,
             },
         });
-    }
+    };
 
     handleSearch = (e) => {
         e && e.preventDefault();
@@ -78,7 +78,7 @@ export default class UserList extends PureComponent {
                 payload: values,
             });
         });
-    }
+    };
 
     renderForm() {
         const { getFieldDecorator } = this.props.form;
@@ -87,15 +87,17 @@ export default class UserList extends PureComponent {
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                     <Col md={8} sm={24}>
                         <FormItem label="用户昵称">
-                            {getFieldDecorator('nickName')(
-                                <Input placeholder="请输入" />
-                            )}
+                            {getFieldDecorator('nickName')(<Input placeholder="请输入" />)}
                         </FormItem>
                     </Col>
                     <Col md={8} sm={24}>
                         <span className={styles.submitButtons}>
-                            <Button type="primary" htmlType="submit">查询</Button>
-                            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
+                            <Button type="primary" htmlType="submit">
+                                查询
+                            </Button>
+                            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                                重置
+                            </Button>
                         </span>
                     </Col>
                 </Row>
@@ -109,9 +111,7 @@ export default class UserList extends PureComponent {
             <PageHeaderLayout>
                 <Card bordered={false}>
                     <div className={styles.tableList}>
-                        <div className={styles.tableListForm}>
-                            {this.renderForm()}
-                        </div>
+                        <div className={styles.tableListForm}>{this.renderForm()}</div>
                         <UserListTable
                             loading={isLoading}
                             data={listData}

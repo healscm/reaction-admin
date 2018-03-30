@@ -51,7 +51,9 @@ export default class SuggestTableForm extends TableForm {
                         return (
                             <Input
                                 value={text}
-                                onChange={e => this.handleFieldChange(e, 'goodVote', record._id)}
+                                onChange={e =>
+                                    this.handleFieldChange(e, 'goodVote', record._id)
+                                }
                                 onBlur={e => this.saveRow(e, record._id)}
                                 onKeyPress={e => this.handleKeyPress(e, record._id)}
                                 placeholder="请输入建议内容"
@@ -81,5 +83,5 @@ export default class SuggestTableForm extends TableForm {
                 },
             },
         ];
-    }
+    };
 }

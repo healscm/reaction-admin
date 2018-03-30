@@ -24,5 +24,5 @@ export default class DoctorPlanTableForm extends TableForm {
                 },
             },
         ];
-    }
+    };
 }

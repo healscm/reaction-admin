@@ -8,10 +8,10 @@ title:
 Basic use
 
 ```jsx
-import RenderAuthorized from 'ant-design-pro/lib/Authorized';
-import { Alert } from 'antd';
+import RenderAuthorized from "ant-design-pro/lib/Authorized";
+import { Alert } from "antd";
 
-const Authorized = RenderAuthorized('user');
+const Authorized = RenderAuthorized("user");
 const noMatch = <Alert message="No permission." type="error" showIcon />;
 
 ReactDOM.render(
@@ -20,6 +20,6 @@ ReactDOM.render(
       <Alert message="user Passed!" type="success" showIcon />
     </Authorized>
   </div>,
-  mountNode,
+  mountNode
 );
 ```

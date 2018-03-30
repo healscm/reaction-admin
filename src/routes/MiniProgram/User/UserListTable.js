@@ -13,7 +13,11 @@ export default class UserListTable extends StandardTable {
                 dataIndex: 'avatarUrl',
                 width: '36px',
                 render: (text, record) => (
-                    <img src={text} alt={record.nickName} style={{ width: '36px', height: '36px' }} />
+                    <img
+                        src={text}
+                        alt={record.nickName}
+                        style={{ width: '36px', height: '36px' }}
+                    />
                 ),
             },
             {
@@ -25,11 +29,12 @@ export default class UserListTable extends StandardTable {
                 width: '120px',
                 render: (text, record) => (
                     <div>
-                        <Link to={`/goods/edit-brand/${record._id}`}>
-                            编辑
-                        </Link>
+                        <Link to={`/goods/edit-brand/${record._id}`}>编辑</Link>
                         <Divider type="vertical" />
-                        <Popconfirm title="是否要删除此行数据？" onConfirm={() => this.props.onRemove(record._id)}>
+                        <Popconfirm
+                            title="是否要删除此行数据？"
+                            onConfirm={() => this.props.onRemove(record._id)}
+                        >
                             <a>删除</a>
                         </Popconfirm>
                     </div>

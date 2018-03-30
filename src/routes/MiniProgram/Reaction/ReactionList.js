@@ -28,7 +28,7 @@ export default class ReactionList extends PureComponent {
         this.handleSearch();
     }
 
-    handleTableChange = (pagination/* , filtersArg, sorter */) => {
+    handleTableChange = (pagination /* , filtersArg, sorter */) => {
         const { dispatch, reaction: { formValues } } = this.props;
         // const filters = Object.keys(filtersArg).reduce((obj, key) => {
         //     const newObj = { ...obj };
@@ -51,14 +51,14 @@ export default class ReactionList extends PureComponent {
             type: 'reaction/find',
             payload: params,
         });
-    }
+    };
 
     handleTableRemove = (reactionId) => {
         this.props.dispatch({
             type: 'reaction/remove',
             payload: reactionId,
         });
-    }
+    };
 
     handleFormReset = () => {
         const { form, dispatch } = this.props;
@@ -69,11 +69,15 @@ export default class ReactionList extends PureComponent {
                 fields: FIND_FIELDS,
             },
         });
-    }
+    };
 
     handleSearch = (e) => {
         e && e.preventDefault();
-        const { dispatch, form, reaction: { listData: { pagination: { current } }, pageSize } } = this.props;
+        const {
+            dispatch,
+            form,
+            reaction: { listData: { pagination: { current } }, pageSize },
+        } = this.props;
         form.validateFields((err, fieldsValue) => {
             if (err) return;
             const values = {
@@ -89,7 +93,7 @@ export default class ReactionList extends PureComponent {
                 payload: values,
             });
         });
-    }
+    };
 
     renderForm() {
         const { getFieldDecorator } = this.props.form;
@@ -98,15 +102,17 @@ export default class ReactionList extends PureComponent {
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                     <Col md={8} sm={24}>
                         <FormItem label="症状名称">
-                            {getFieldDecorator('name')(
-                                <Input placeholder="请输入" />
-                            )}
+                            {getFieldDecorator('name')(<Input placeholder="请输入" />)}
                         </FormItem>
                     </Col>
                     <Col md={8} sm={24}>
                         <span className={styles.submitButtons}>
-                            <Button type="primary" htmlType="submit">查询</Button>
-                            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>重置</Button>
+                            <Button type="primary" htmlType="submit">
+                                查询
+                            </Button>
+                            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                                重置
+                            </Button>
                         </span>
                     </Col>
                 </Row>
@@ -120,9 +126,7 @@ export default class ReactionList extends PureComponent {
             <PageHeaderLayout>
                 <Card bordered={false}>
                     <div className={styles.tableList}>
-                        <div className={styles.tableListForm}>
-                            {this.renderForm()}
-                        </div>
+                        <div className={styles.tableListForm}>{this.renderForm()}</div>
                         <ReactionListTable
                             loading={isLoading}
                             data={listData}
