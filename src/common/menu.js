@@ -117,9 +117,9 @@ import { isUrl } from '../utils/utils';
 
 const menuData = [
     {
-        name: '小管家',
+        name: '小程序',
         icon: 'wechat',
-        path: 'wechat',
+        path: 'mini-program',
         children: [
             {
                 name: '用户列表',

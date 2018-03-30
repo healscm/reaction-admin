@@ -73,13 +73,13 @@ export const getRouterData = (app) => {
         '/': {
             component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
         },
-        '/wechat/user-list': {
+        '/mini-program/user-list': {
             component: dynamicWrapper(app, ['userList'], () => import('../routes/MiniProgram/User/UserList')),
         },
-        '/wechat/reaction-list': {
+        '/mini-program/reaction-list': {
             component: dynamicWrapper(app, ['reaction'], () => import('../routes/MiniProgram/Reaction/ReactionList')),
         },
-        '/wechat/reaction-editor/:_id': {
+        '/mini-program/reaction-editor/:_id': {
             component: dynamicWrapper(app, ['reaction'], () => import('../routes/MiniProgram/Reaction/ReactionEditor')),
         },
         '/exception/403': {
