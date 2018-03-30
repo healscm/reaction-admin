@@ -25,6 +25,7 @@ export default {
                     type: 'saveToken',
                     payload: response.data.token,
                 });
+                setAuthority('admin');
                 reloadAuthorized();
                 yield put(routerRedux.push('/'));
             }
