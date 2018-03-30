@@ -9,12 +9,8 @@ metadata:
     heritage: {{ .Release.Service }}
 {{- if .Values.service.annotations }}
   annotations:
-{{ toYaml .Values.service.annotations | indent 4 }}
-# {{- if eq .Release.Namespace "production" -}}
-    # service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9f1h7l4z5fh1ts7bhyc
-# {{- else if eq .Release.Namespace "staging" -}}
-#     service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9hldlurot1xct8r3cko
-# {{- end -}}
+{{ toYaml .Values.service.annotations | indent 4 -}}
+    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9ix2ows0w9jgma95pbo
 {{- end }}
 spec:
   type: {{ .Values.service.type }}
