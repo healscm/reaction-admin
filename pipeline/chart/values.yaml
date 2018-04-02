@@ -6,7 +6,7 @@ image:
   repository: registry.qtclinics.com/sanbao-admin/v1.5.4
   tag: 89f6210
   pullPolicy: IfNotPresent
-  pullSecrets: aliyun-registry-key
+  pullSecrets: alicloud-registry-key
 service:
   name: sanbao-admin
   type: LoadBalancer

@@ -23,7 +23,7 @@ steps:
     description: Push image to registry
     candidate: ${{build_image}}
     tag: '${{CF_REVISION}}'
-    registry: aliyun
+    registry: alicloud
     fail_fast: true
     when:
       condition:
