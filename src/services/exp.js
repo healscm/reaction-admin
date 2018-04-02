@@ -1,5 +1,5 @@
 // import { stringify } from 'qs';
-import { post } from '../utils/request';
+import { get, post } from '../utils/request';
 
 export async function find(params) {
     return post('/admin/api/find_reaction_exp_list', params);
@@ -9,13 +9,13 @@ export async function find(params) {
 //     return get(`/admin/api/detail_exp/${_id}`);
 // }
 
-// export async function update(params) {
-//     return post('/admin/api/update_exp', params);
-// }
+export async function update(params) {
+    return post('/admin/api/update_reaction_exp', params);
+}
 
-// export async function remove(_id) {
-//     return get(`/admin/api/remove_exp/${_id}`);
-// }
+export async function remove(_id) {
+    return get(`/admin/api/remove_reaction_exp/${_id}`);
+}
 
 // export async function add(params) {
 //     return post('/admin/api/add_exp', params);

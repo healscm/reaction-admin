@@ -3,8 +3,8 @@ import { message } from 'antd';
 import {
     find,
     // detail,
-    // update,
-    // remove,
+    update,
+    remove,
 } from '../services/exp';
 
 export default {
@@ -64,26 +64,30 @@ export default {
         //         message.error(response.data);
         //     }
         // },
-        // *update({ payload }, { call }) {
-        //     const response = yield call(update, payload);
-        //     if (response.success) {
-        //         message.success('保存成功');
-        //     } else {
-        //         message.error(response.data);
-        //     }
-        // },
-        // *remove({ payload }, { call, put }) {
-        //     const response = yield call(remove, payload);
-        //     if (response.success) {
-        //         yield put({
-        //             type: 'removeData',
-        //             payload,
-        //         });
-        //         message.success('删除成功');
-        //     } else {
-        //         message.error(response.data);
-        //     }
-        // },
+        *update({ payload }, { call, put }) {
+            const response = yield call(update, payload);
+            if (response.success) {
+                message.success('保存成功');
+                yield put({
+                    type: 'updateListData',
+                    payload: response.data,
+                });
+            } else {
+                message.error(response.data);
+            }
+        },
+        *remove({ payload }, { call, put }) {
+            const response = yield call(remove, payload);
+            if (response.success) {
+                yield put({
+                    type: 'removeData',
+                    payload,
+                });
+                message.success('删除成功');
+            } else {
+                message.error(response.data);
+            }
+        },
         // *create(_, { put }) {
         //     yield put(routerRedux.push('/mini-program/reaction-editor/add'));
         // },
@@ -109,7 +113,6 @@ export default {
             };
         },
         setListData(state, { payload }) {
-            console.log(payload);
             return {
                 ...state,
                 listData: { ...payload },
@@ -122,16 +125,32 @@ export default {
                 pageSize: payload,
             };
         },
-        // removeData(state, { payload }) {
-        //     const { list } = state.listData;
-        //     const newList = list.filter(item => item._id !== payload);
-        //     return {
-        //         ...state,
-        //         listData: {
-        //             ...state.listData,
-        //             list: newList,
-        //         },
-        //     };
-        // },
+        removeData(state, { payload }) {
+            const { list } = state.listData;
+            const newList = list.filter(item => item._id !== payload);
+            return {
+                ...state,
+                listData: {
+                    ...state.listData,
+                    list: newList,
+                },
+            };
+        },
+        updateListData(state, { payload }) {
+            const newList = [...state.listData.list];
+            for (let i = 0; i < newList.length; i += 1) {
+                if (newList[i]._id === payload._id) {
+                    newList[i] = { ...newList[i], ...payload };
+                    break;
+                }
+            }
+            return {
+                ...state,
+                listData: {
+                    ...state.listData,
+                    list: newList,
+                },
+            };
+        },
     },
 };

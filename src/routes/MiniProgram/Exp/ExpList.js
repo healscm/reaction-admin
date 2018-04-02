@@ -60,6 +60,19 @@ export default class ExpList extends PureComponent {
         });
     };
 
+    handleSetExcellent = (_id, val) => {
+        const { dispatch } = this.props;
+        dispatch({
+            type: 'exp/update',
+            payload: {
+                _id,
+                data: {
+                    is_excellent: !!val,
+                },
+            },
+        });
+    }
+
     handleFormReset = () => {
         const { form, dispatch } = this.props;
         form.resetFields();
@@ -132,6 +145,7 @@ export default class ExpList extends PureComponent {
                             data={listData}
                             onChange={this.handleTableChange}
                             onRemove={this.handleTableRemove}
+                            onSetExcellent={this.handleSetExcellent}
                         />
                     </div>
                 </Card>

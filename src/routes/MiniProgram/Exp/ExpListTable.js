@@ -36,7 +36,13 @@ export default class ExpListTable extends StandardTable {
                 width: '180px',
                 render: (text, record) => (
                     <div>
-                        <a>移入精选</a>
+                        {
+                            record.is_excellent ? (
+                                <a onClick={() => this.props.onSetExcellent(record._id, false)}>移出精选</a>
+                            ) : (
+                                <a onClick={() => this.props.onSetExcellent(record._id, true)}>移入精选</a>
+                            )
+                        }
                         <Divider type="vertical" />
                         <Popconfirm
                             title="是否要删除此行数据？"
