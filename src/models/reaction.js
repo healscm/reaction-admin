@@ -98,6 +98,12 @@ export default {
         *create(_, { put }) {
             yield put(routerRedux.push('/mini-program/reaction-editor/add'));
         },
+        *tagChange({ payload }, { put }) {
+            yield put({
+                type: 'setTags',
+                payload,
+            });
+        },
         *clearDetail(_, { put }) {
             yield put({
                 type: 'setDetail',
@@ -154,6 +160,12 @@ export default {
                     ...state.listData,
                     list: newList,
                 },
+            };
+        },
+        setTags(state, { payload }) {
+            return {
+                ...state,
+                detail: { ...state.detail, tags: payload },
             };
         },
     },

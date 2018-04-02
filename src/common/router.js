@@ -82,6 +82,9 @@ export const getRouterData = (app) => {
         '/mini-program/reaction-editor/:_id': {
             component: dynamicWrapper(app, ['reaction'], () => import('../routes/MiniProgram/Reaction/ReactionEditor')),
         },
+        '/mini-program/exp-list': {
+            component: dynamicWrapper(app, ['exp'], () => import('../routes/MiniProgram/Exp/ExpList')),
+        },
         '/exception/403': {
             component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),
         },

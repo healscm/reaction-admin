@@ -131,6 +131,11 @@ const menuData = [
                 path: 'reaction-list',
                 icon: 'user',
             },
+            {
+                name: '患友经验列表',
+                path: 'exp-list',
+                icon: 'user',
+            },
         ],
     },
 ];

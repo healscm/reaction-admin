@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Card, Button, Form, Icon, Input, Popover } from 'antd';
+import { Card, Button, Form, Icon, Input, Popover, Tag, Tooltip } from 'antd';
 import { connect } from 'dva';
 import FooterToolbar from 'components/FooterToolbar';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
@@ -25,6 +25,8 @@ export default class ReactionEditor extends PureComponent {
     state = {
         footerWidth: '100%',
         submitting: false,
+        newTagInputVisible: false,
+        newTagInputValue: '',
     };
     componentDidMount() {
         const { dispatch, match: { params: { _id } } } = this.props;
@@ -60,6 +62,73 @@ export default class ReactionEditor extends PureComponent {
             this.setState({ width });
         }
     };
+    handleNewTagInputChange = (e) => {
+        this.setState({ newTagInputValue: e.target.value });
+    }
+    handleNewTagInputConfirm = () => {
+        const { newTagInputValue } = this.state;
+        const { tags } = this.props.reaction.detail;
+        if (newTagInputValue && tags.indexOf(newTagInputValue) === -1) {
+            this.props.dispatch({
+                type: 'reaction/tagChange',
+                payload: [...tags, newTagInputValue],
+            });
+        }
+        this.setState({
+            newTagInputVisible: false,
+            newTagInputValue: '',
+        });
+    }
+    handleNewTagsClose = (removedTag) => {
+        const { dispatch, reaction: { detail: { tags } } } = this.props;
+        const newTags = tags.filter(tag => tag !== removedTag);
+        dispatch({
+            type: 'reaction/tagChange',
+            payload: newTags,
+        });
+    }
+    showNewTagInput = () => {
+        this.setState({ newTagInputVisible: true }, () => this.tagInput.focus());
+    }
+    renderTags() {
+        const { newTagInputValue, newTagInputVisible } = this.state;
+        const { tags } = this.props.reaction.detail;
+        if (tags) {
+            return (
+                <Card title="标签" bordered={false}>
+                    {tags.map((tag, index) => {
+                        const isLongTag = tag.length > 10;
+                        const tagElem = (
+                            <Tag key={tag} closable={index !== 0} afterClose={() => this.handleNewTagsClose(tag)}>
+                                {isLongTag ? `${tag.slice(0, 10)}...` : tag}
+                            </Tag>
+                        );
+                        return isLongTag ? <Tooltip title={tag} key={tag}>{tagElem}</Tooltip> : tagElem;
+                    })}
+                    {newTagInputVisible && (
+                        <Input
+                            ref={(input) => { this.tagInput = input; }}
+                            type="text"
+                            size="small"
+                            style={{ width: 78 }}
+                            value={newTagInputValue}
+                            onChange={this.handleNewTagInputChange}
+                            onBlur={this.handleNewTagInputConfirm}
+                            onPressEnter={this.handleNewTagInputConfirm}
+                        />
+                    )}
+                    {!newTagInputVisible && (
+                        <Tag
+                            onClick={this.showNewTagInput}
+                            style={{ background: '#fff', borderStyle: 'dashed' }}
+                        >
+                            <Icon type="plus" /> New Tag
+                        </Tag>
+                    )}
+                </Card>
+            );
+        }
+    }
     render() {
         const { submitting } = this.state;
         const { form, dispatch, reaction: { detail } } = this.props;
@@ -69,7 +138,7 @@ export default class ReactionEditor extends PureComponent {
                 if (!error) {
                     // submit the values
                     const newValues = {
-                        data: { ...values },
+                        data: { ...values, tags: detail.tags },
                         _id: detail._id,
                     };
                     console.log(newValues);
@@ -135,7 +204,10 @@ export default class ReactionEditor extends PureComponent {
                 title="添加/编辑症状"
                 wrapperClassName={styles.advancedForm}
             >
-                <Card className={styles.card} bordered={false}>
+                {
+                    this.renderTags()
+                }
+                <Card title="基本信息" bordered={false}>
                     <Form layout="vertical" hideRequiredMark>
                         <Form.Item label={fieldLabels.name}>
                             {getFieldDecorator('name', {
