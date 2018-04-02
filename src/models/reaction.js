@@ -1,5 +1,6 @@
 import { message } from 'antd';
-import { find, detail, update, remove } from '../services/reaction';
+import { routerRedux } from 'dva/router';
+import { find, detail, update, remove, add } from '../services/reaction';
 
 export default {
     namespace: 'reaction',
@@ -68,6 +69,20 @@ export default {
                 message.error(response.data);
             }
         },
+        *add({ payload }, { call }) {
+            payload.data.doctor_plan = payload.data.doctor_plan.map((item) => (item.content)); // eslint-disable-line
+            payload.data.serious_symptom = payload.data.serious_symptom.map((item) => (item.content)); // eslint-disable-line
+            payload.data.suggest = payload.data.suggest.map((item) => { // eslint-disable-line
+                delete item._id; // eslint-disable-line
+                return item;
+            });
+            const response = yield call(add, payload);
+            if (response.success) {
+                message.success('添加成功');
+            } else {
+                message.error(response.data);
+            }
+        },
         *remove({ payload }, { call, put }) {
             const response = yield call(remove, payload);
             if (response.success) {
@@ -79,6 +94,9 @@ export default {
             } else {
                 message.error(response.data);
             }
+        },
+        *create(_, { put }) {
+            yield put(routerRedux.push('/mini-program/reaction-editor/add'));
         },
         *clearDetail(_, { put }) {
             yield put({

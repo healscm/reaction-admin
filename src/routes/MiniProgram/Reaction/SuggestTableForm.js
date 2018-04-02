@@ -84,4 +84,21 @@ export default class SuggestTableForm extends TableForm {
             },
         ];
     };
+
+    validate = (target) => {
+        const { badVote, goodVote, content, id } = target;
+        if (!id || isNaN(id)) {
+            return 'ID必须是数字!';
+        }
+        if (!content) {
+            return '建议内容不能为空!';
+        }
+        if (!goodVote || isNaN(goodVote)) {
+            return '有用投票数必须是数字!';
+        }
+        if (!badVote || isNaN(badVote)) {
+            return '没用投票数必须是数字!';
+        }
+        return true;
+    }
 }

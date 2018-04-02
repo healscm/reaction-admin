@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Table, Button, Popconfirm, Divider } from 'antd';
+import { Table, Button, Popconfirm, Divider, message } from 'antd';
 import styles from './index.less';
 
 export default class TableForm extends PureComponent {
@@ -102,10 +102,13 @@ export default class TableForm extends PureComponent {
                 return;
             }
             const target = this.getRowById(_id) || {};
-            if (this.validate(target)) {
+            const validateResult = this.validate(target);
+            if (validateResult === true) {
                 delete target.isNew;
                 this.toggleEditable(e, _id);
                 this.props.onChange && this.props.onChange(this.state.data);
+            } else {
+                message.error(validateResult);
             }
         }, 10);
     }

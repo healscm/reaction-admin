@@ -28,19 +28,23 @@ export default class ReactionEditor extends PureComponent {
     };
     componentDidMount() {
         const { dispatch, match: { params: { _id } } } = this.props;
-        dispatch({
-            type: 'reaction/detail',
-            payload: _id,
-            callback: () => {
-                const { form: { setFieldsValue }, reaction: { detail } } = this.props;
-                // console.log(detail);
-                setFieldsValue({
-                    name: detail.name,
-                    des: detail.des,
-                    summary: detail.summary,
-                });
-            },
-        });
+        if (/\w{24}/.test(_id)) {
+            dispatch({
+                type: 'reaction/detail',
+                payload: _id,
+                callback: () => {
+                    const { form: { setFieldsValue }, reaction: { detail } } = this.props;
+                    // console.log(detail);
+                    setFieldsValue({
+                        name: detail.name,
+                        des: detail.des,
+                        summary: detail.summary,
+                    });
+                },
+            });
+        } else {
+            console.log(_id);
+        }
         window.addEventListener('resize', this.resizeFooterToolbar);
     }
     componentWillUnmount() {
@@ -69,10 +73,17 @@ export default class ReactionEditor extends PureComponent {
                         _id: detail._id,
                     };
                     console.log(newValues);
-                    dispatch({
-                        type: 'reaction/update',
-                        payload: newValues,
-                    });
+                    if (detail._id) {
+                        dispatch({
+                            type: 'reaction/update',
+                            payload: newValues,
+                        });
+                    } else {
+                        dispatch({
+                            type: 'reaction/add',
+                            payload: newValues,
+                        });
+                    }
                 }
             });
         };

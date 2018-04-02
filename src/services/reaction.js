@@ -16,3 +16,7 @@ export async function update(params) {
 export async function remove(_id) {
     return get(`/admin/api/remove_reaction/${_id}`);
 }
+
+export async function add(params) {
+    return post('/admin/api/add_reaction', params);
+}

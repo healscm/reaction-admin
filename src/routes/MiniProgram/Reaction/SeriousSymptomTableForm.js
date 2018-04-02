@@ -25,4 +25,12 @@ export default class SeriousSymptomTableForm extends TableForm {
             },
         ];
     };
+
+    validate = (target) => {
+        const { content } = target;
+        if (!content) {
+            return '不良情况不能为空!';
+        }
+        return true;
+    }
 }

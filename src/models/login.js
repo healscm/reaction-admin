@@ -17,10 +17,13 @@ export default {
             const response = yield call(login, payload);
             yield put({
                 type: 'changeLoginStatus',
-                payload: response,
+                payload: {
+                    status: false,
+                    currentAuthority: 'guest',
+                },
             });
             // Login successfully
-            if (response.success) {
+            if (response && response.success) {
                 yield put({
                     type: 'saveToken',
                     payload: response.data.token,
@@ -28,6 +31,14 @@ export default {
                 setAuthority('admin');
                 reloadAuthorized();
                 yield put(routerRedux.push('/'));
+            } else {
+                yield put({
+                    type: 'changeLoginStatus',
+                    payload: {
+                        status: 'error',
+                        currentAuthority: 'guest',
+                    },
+                });
             }
         },
         *logout(_, { put, select }) {

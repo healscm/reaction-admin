@@ -25,4 +25,12 @@ export default class DoctorPlanTableForm extends TableForm {
             },
         ];
     };
+
+    validate = (target) => {
+        const { content } = target;
+        if (!content) {
+            return '应对方案不能为空!';
+        }
+        return true;
+    }
 }
