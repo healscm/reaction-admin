@@ -109,6 +109,7 @@ export default {
             };
         },
         setListData(state, { payload }) {
+            console.log(payload);
             return {
                 ...state,
                 listData: { ...payload },

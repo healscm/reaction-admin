@@ -1,8 +1,8 @@
 // import { stringify } from 'qs';
-import { get, post } from '../utils/request';
+import { post } from '../utils/request';
 
 export async function find(params) {
-    return post('/admin/api/find_exp_list', params);
+    return post('/admin/api/find_reaction_exp_list', params);
 }
 
 // export async function detail(_id) {

@@ -95,12 +95,6 @@ export default class ExpList extends PureComponent {
         });
     };
 
-    handleCreate = () => {
-        this.props.dispatch({
-            type: 'exp/create',
-        });
-    };
-
     renderForm() {
         const { getFieldDecorator } = this.props.form;
         return (
@@ -133,11 +127,6 @@ export default class ExpList extends PureComponent {
                 <Card bordered={false}>
                     <div className={styles.tableList}>
                         <div className={styles.tableListForm}>{this.renderForm()}</div>
-                        <div className={styles.tableListOperator}>
-                            <Button icon="plus" type="primary" onClick={this.handleCreate}>
-                                新建
-                            </Button>
-                        </div>
                         <ExpListTable
                             loading={isLoading}
                             data={listData}
