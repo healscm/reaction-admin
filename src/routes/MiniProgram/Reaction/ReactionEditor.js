@@ -41,6 +41,7 @@ export default class ReactionEditor extends PureComponent {
                         name: detail.name,
                         des: detail.des,
                         summary: detail.summary,
+                        reason: detail.reason,
                     });
                 },
             });
@@ -217,13 +218,6 @@ export default class ReactionEditor extends PureComponent {
                                 ],
                             })(<Input placeholder={`请输入${fieldLabels.name}`} />)}
                         </Form.Item>
-                        <Form.Item label={fieldLabels.des}>
-                            {getFieldDecorator('des', {
-                                rules: [{ required: true, message: `请输入${fieldLabels.des}` }],
-                            })(
-                                <TextArea rows={4} placeholder={`请输入${fieldLabels.des}`} />
-                            )}
-                        </Form.Item>
                         <Form.Item label={fieldLabels.summary}>
                             {getFieldDecorator('summary', {
                                 rules: [
@@ -234,6 +228,20 @@ export default class ReactionEditor extends PureComponent {
                                     rows={4}
                                     placeholder={`请输入${fieldLabels.summary}`}
                                 />
+                            )}
+                        </Form.Item>
+                        <Form.Item label={fieldLabels.des}>
+                            {getFieldDecorator('des', {
+                                rules: [{ required: true, message: `请输入${fieldLabels.des}` }],
+                            })(
+                                <TextArea rows={4} placeholder={`请输入${fieldLabels.des}`} />
+                            )}
+                        </Form.Item>
+                        <Form.Item label={fieldLabels.reason}>
+                            {getFieldDecorator('reason', {
+                                rules: [{ required: true, message: `请输入${fieldLabels.reason}` }],
+                            })(
+                                <TextArea rows={8} placeholder={`请输入${fieldLabels.reason}`} />
                             )}
                         </Form.Item>
                     </Form>
