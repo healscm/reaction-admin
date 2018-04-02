@@ -6,7 +6,7 @@ steps:
     title: Build Docker Image
     description: Build Docker Image
     dockerfile: pipeline/Dockerfile
-    image_name: ${{APP_NAME}}/${{CF_BRANCH_TAG_NORMALIZED}}
+    image_name: qtclinics/${{APP_NAME}}
     tag: ${{CF_REVISION}}
     build_arguments:
       - force-rm
@@ -46,7 +46,7 @@ steps:
     image: alpine:latest
     commands:
       - echo NAMESPACE=$([[ $(echo "${{CF_BRANCH}}" | grep -Eo "^v[0-9]+\.") ]] && echo "production" || echo "staging") >> ${{CF_VOLUME_PATH}}/env_vars_to_export
-      - echo IMAGE_NAME=registry.qtclinics.com/${{APP_NAME}}/${{CF_BRANCH_TAG_NORMALIZED}} >> ${{CF_VOLUME_PATH}}/env_vars_to_export
+      - echo IMAGE_NAME=registry-vpc.cn-shenzhen.aliyuncs.com/qtclinics/${{APP_NAME}} >> ${{CF_VOLUME_PATH}}/env_vars_to_export
 
   deploy_to_k8s:
     title: Deploy to k8s

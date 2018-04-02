@@ -5,7 +5,7 @@ replicaCount: 1
 image:
   repository: registry.qtclinics.com/sanbao-admin/v1.5.4
   tag: 89f6210
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   pullSecrets: aliyun-registry-key
 service:
   name: sanbao-admin
