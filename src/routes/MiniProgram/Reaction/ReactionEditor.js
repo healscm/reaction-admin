@@ -92,42 +92,43 @@ export default class ReactionEditor extends PureComponent {
     }
     renderTags() {
         const { newTagInputValue, newTagInputVisible } = this.state;
-        const { tags } = this.props.reaction.detail;
-        if (tags) {
-            return (
-                <Card title="标签" bordered={false}>
-                    {tags.map((tag, index) => {
-                        const isLongTag = tag.length > 10;
-                        const tagElem = (
-                            <Tag key={tag} closable={index !== 0} afterClose={() => this.handleNewTagsClose(tag)}>
-                                {isLongTag ? `${tag.slice(0, 10)}...` : tag}
-                            </Tag>
-                        );
-                        return isLongTag ? <Tooltip title={tag} key={tag}>{tagElem}</Tooltip> : tagElem;
-                    })}
-                    {newTagInputVisible && (
-                        <Input
-                            ref={(input) => { this.tagInput = input; }}
-                            type="text"
-                            size="small"
-                            style={{ width: 78 }}
-                            value={newTagInputValue}
-                            onChange={this.handleNewTagInputChange}
-                            onBlur={this.handleNewTagInputConfirm}
-                            onPressEnter={this.handleNewTagInputConfirm}
-                        />
-                    )}
-                    {!newTagInputVisible && (
-                        <Tag
-                            onClick={this.showNewTagInput}
-                            style={{ background: '#fff', borderStyle: 'dashed' }}
-                        >
-                            <Icon type="plus" /> New Tag
-                        </Tag>
-                    )}
-                </Card>
-            );
+        let { tags } = this.props.reaction.detail;
+        if (!tags) {
+            tags = [];
         }
+        return (
+            <Card title="标签" bordered={false}>
+                {tags.map((tag, index) => {
+                    const isLongTag = tag.length > 10;
+                    const tagElem = (
+                        <Tag key={tag} closable={index !== 0} afterClose={() => this.handleNewTagsClose(tag)}>
+                            {isLongTag ? `${tag.slice(0, 10)}...` : tag}
+                        </Tag>
+                    );
+                    return isLongTag ? <Tooltip title={tag} key={tag}>{tagElem}</Tooltip> : tagElem;
+                })}
+                {newTagInputVisible && (
+                    <Input
+                        ref={(input) => { this.tagInput = input; }}
+                        type="text"
+                        size="small"
+                        style={{ width: 78 }}
+                        value={newTagInputValue}
+                        onChange={this.handleNewTagInputChange}
+                        onBlur={this.handleNewTagInputConfirm}
+                        onPressEnter={this.handleNewTagInputConfirm}
+                    />
+                )}
+                {!newTagInputVisible && (
+                    <Tag
+                        onClick={this.showNewTagInput}
+                        style={{ background: '#fff', borderStyle: 'dashed' }}
+                    >
+                        <Icon type="plus" /> New Tag
+                    </Tag>
+                )}
+            </Card>
+        );
     }
     render() {
         const { submitting } = this.state;
