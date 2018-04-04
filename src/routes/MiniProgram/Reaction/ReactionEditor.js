@@ -47,6 +47,10 @@ export default class ReactionEditor extends PureComponent {
                     });
                 },
             });
+        } else {
+            dispatch({
+                type: 'reaction/fetchCategory',
+            });
         }
         window.addEventListener('resize', this.resizeFooterToolbar);
     }

@@ -1,6 +1,7 @@
 import { message } from 'antd';
 import { routerRedux } from 'dva/router';
 import { find, detail, update, remove, add } from '../services/reaction';
+import { find as findCategory } from '../services/category';
 
 export default {
     namespace: 'reaction',
@@ -114,6 +115,17 @@ export default {
                 payload: {},
             });
         },
+        *fetchCategory(_, { call, put }) {
+            const response = yield call(findCategory);
+            if (response.success) {
+                yield put({
+                    type: 'setCategory',
+                    payload: response.data,
+                });
+            } else {
+                message.error(response.data);
+            }
+        },
     },
 
     reducers: {
@@ -178,6 +190,12 @@ export default {
             return {
                 ...state,
                 detail: { ...state.detail, tags: payload },
+            };
+        },
+        setCategory(state, { payload }) {
+            return {
+                ...state,
+                category: payload,
             };
         },
     },
