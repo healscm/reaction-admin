@@ -13,10 +13,12 @@ export default {
                 current: 1,
                 total: 0,
             },
+            category: [],
         },
         pageSize: 10,
         formValues: {
-            nickName: '',
+            name: '',
+            category: '',
         },
         detail: {},
     },
@@ -30,7 +32,8 @@ export default {
             yield put({
                 type: 'setFormValues',
                 payload: {
-                    nickName: payload.nickName,
+                    name: payload.name,
+                    category: payload.category,
                 },
             });
             yield put({

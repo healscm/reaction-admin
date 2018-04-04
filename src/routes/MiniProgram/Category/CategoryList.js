@@ -21,7 +21,6 @@ export default class ExpList extends PureComponent {
     };
 
     handleChange = (newData, removeId) => {
-        // console.log(newData);
         this.props.dispatch({
             type: 'category/update',
             payload: { data: newData, removeId },

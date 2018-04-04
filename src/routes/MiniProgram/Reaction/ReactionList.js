@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Card, Form, Input, Button } from 'antd';
+import { Row, Col, Card, Form, Input, Button, Select } from 'antd';
 import ReactionListTable from './ReactionListTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from '../../style.less';
 
 const FormItem = Form.Item;
+const { Option } = Select;
 // const getValue = obj => Object.keys(obj).map(key => obj[key]).join(',');
 
 const FIND_FIELDS = {
@@ -28,25 +29,14 @@ export default class ReactionList extends PureComponent {
         this.handleSearch();
     }
 
-    handleTableChange = (pagination /* , filtersArg, sorter */) => {
+    handleTableChange = (pagination) => {
         const { dispatch, reaction: { formValues } } = this.props;
-        // const filters = Object.keys(filtersArg).reduce((obj, key) => {
-        //     const newObj = { ...obj };
-        //     newObj[key] = getValue(filtersArg[key]);
-        //     return newObj;
-        // }, {});
-
         const params = {
             currentPage: pagination.current,
             pageSize: pagination.pageSize,
             ...formValues,
             fields: FIND_FIELDS,
-            // ...filters,
         };
-        // if (sorter.field) {
-        //     params.sorter = `${sorter.field}_${sorter.order}`;
-        // }
-
         dispatch({
             type: 'reaction/find',
             payload: params,
@@ -102,13 +92,33 @@ export default class ReactionList extends PureComponent {
     };
 
     renderForm() {
-        const { getFieldDecorator } = this.props.form;
+        const { form: { getFieldDecorator }, reaction: { listData: { category } } } = this.props;
         return (
             <Form onSubmit={this.handleSearch} layout="inline">
                 <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
                     <Col md={8} sm={24}>
                         <FormItem label="症状名称">
                             {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+                        </FormItem>
+                    </Col>
+                    <Col md={8} sm={24}>
+                        <FormItem label="症状类别">
+                            {getFieldDecorator('category', {
+                                initialValue: 'all',
+                            })(
+                                <Select>
+                                    <Option key="all" value="all">
+                                        所有类别
+                                    </Option>
+                                    {
+                                        category.map(item => (
+                                            <Option key={item._id} value={item._id}>
+                                                {item.name}
+                                            </Option>
+                                        ))
+                                    }
+                                </Select>
+                            )}
                         </FormItem>
                     </Col>
                     <Col md={8} sm={24}>
