@@ -21,6 +21,7 @@ export default {
             category: '',
         },
         detail: {},
+        category: [],
     },
 
     effects: {
@@ -142,16 +143,24 @@ export default {
             };
         },
         setDetail(state, { payload }) {
-            const { doctor_plan, serious_symptom } = payload; // eslint-disable-line
-            if (Array.isArray(doctor_plan)) {
-                payload.doctor_plan = doctor_plan.map((content, i) => ({ content, _id: i })); // eslint-disable-line
-            }
-            if (Array.isArray(serious_symptom)) {
-                payload.serious_symptom = serious_symptom.map((content, i) => ({ content, _id: i })); // eslint-disable-line                
+            if (payload.reaction) {
+                const { doctor_plan, serious_symptom } = payload.reaction; // eslint-disable-line
+                if (Array.isArray(doctor_plan)) {
+                    payload.reaction.doctor_plan = doctor_plan.map((content, i) => ({ content, _id: i })); // eslint-disable-line
+                }
+                if (Array.isArray(serious_symptom)) {
+                    payload.reaction.serious_symptom = serious_symptom.map((content, i) => ({ content, _id: i })); // eslint-disable-line                
+                }
+                return {
+                    ...state,
+                    detail: { ...payload.reaction },
+                    category: payload.category,
+                };
             }
             return {
                 ...state,
-                detail: { ...payload },
+                detail: {},
+                category: [],
             };
         },
         removeData(state, { payload }) {

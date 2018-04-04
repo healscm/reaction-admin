@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { Card, Button, Form, Icon, Input, Popover, Tag, Tooltip } from 'antd';
+import { Card, Button, Form, Icon, Input, Popover, Tag, Tooltip, Select } from 'antd';
 import { connect } from 'dva';
 import FooterToolbar from 'components/FooterToolbar';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
@@ -9,12 +9,14 @@ import SeriousSymptomTableForm from './SeriousSymptomTableForm';
 import styles from '../../style.less';
 
 const { TextArea } = Input;
+const { Option } = Select;
 
 const fieldLabels = {
     name: '症状名称',
     des: '症状描述',
     summary: '症状概述',
     reason: '产生原因',
+    category: '症状类别',
 };
 
 @connect(state => ({
@@ -36,17 +38,15 @@ export default class ReactionEditor extends PureComponent {
                 payload: _id,
                 callback: () => {
                     const { form: { setFieldsValue }, reaction: { detail } } = this.props;
-                    // console.log(detail);
                     setFieldsValue({
                         name: detail.name,
                         des: detail.des,
                         summary: detail.summary,
                         reason: detail.reason,
+                        category: detail.category,
                     });
                 },
             });
-        } else {
-            console.log(_id);
         }
         window.addEventListener('resize', this.resizeFooterToolbar);
     }
@@ -143,7 +143,6 @@ export default class ReactionEditor extends PureComponent {
                         data: { ...values, tags: detail.tags },
                         _id: detail._id,
                     };
-                    console.log(newValues);
                     if (detail._id) {
                         dispatch({
                             type: 'reaction/update',
@@ -242,6 +241,24 @@ export default class ReactionEditor extends PureComponent {
                                 rules: [{ required: true, message: `请输入${fieldLabels.reason}` }],
                             })(
                                 <TextArea rows={8} placeholder={`请输入${fieldLabels.reason}`} />
+                            )}
+                        </Form.Item>
+                        <Form.Item label={fieldLabels.category}>
+                            {getFieldDecorator('category', {
+                                rules: [{ required: true, message: `请选择${fieldLabels.category}` }],
+                            })(
+                                <Select
+                                    mode="multiple"
+                                    placeholder="请选择症状类别"
+                                >
+                                    {
+                                        this.props.reaction.category.map(item => (
+                                            <Option key={item._id} value={item._id}>
+                                                { item.name }
+                                            </Option>
+                                        ))
+                                    }
+                                </Select>
                             )}
                         </Form.Item>
                     </Form>
