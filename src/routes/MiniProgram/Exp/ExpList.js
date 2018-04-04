@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Form } from 'antd';
+import { Card, Form, Row, Col, Button, Input } from 'antd';
 import ExpListTable from './ExpListTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from '../../style.less';
+
+const FormItem = Form.Item;
 
 @connect(state => ({
     exp: state.exp,
@@ -84,30 +86,30 @@ export default class ExpList extends PureComponent {
         });
     };
 
-    // renderForm() {
-    //     // const { getFieldDecorator } = this.props.form;
-    //     // return (
-    //     //     <Form onSubmit={this.handleSearch} layout="inline">
-    //     //         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-    //     //             <Col md={8} sm={24}>
-    //     //                 <FormItem label="症状名称">
-    //     //                     {getFieldDecorator('name')(<Input placeholder="请输入" />)}
-    //     //                 </FormItem>
-    //     //             </Col>
-    //     //             <Col md={8} sm={24}>
-    //     //                 <span className={styles.submitButtons}>
-    //     //                     <Button type="primary" htmlType="submit">
-    //     //                         查询
-    //     //                     </Button>
-    //     //                     <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-    //     //                         重置
-    //     //                     </Button>
-    //     //                 </span>
-    //     //             </Col>
-    //     //         </Row>
-    //     //     </Form>
-    //     // );
-    // }
+    renderForm() {
+        const { getFieldDecorator } = this.props.form;
+        return (
+            <Form onSubmit={this.handleSearch} layout="inline">
+                <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+                    <Col md={8} sm={24}>
+                        <FormItem label="症状名称">
+                            {getFieldDecorator('name')(<Input placeholder="请输入症状名称" />)}
+                        </FormItem>
+                    </Col>
+                    <Col md={8} sm={24}>
+                        <span className={styles.submitButtons}>
+                            <Button type="primary" htmlType="submit">
+                                查询
+                            </Button>
+                            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                                重置
+                            </Button>
+                        </span>
+                    </Col>
+                </Row>
+            </Form>
+        );
+    }
 
     render() {
         const { exp: { isLoading, listData } } = this.props;
@@ -115,7 +117,7 @@ export default class ExpList extends PureComponent {
             <PageHeaderLayout>
                 <Card bordered={false}>
                     <div className={styles.tableList}>
-                        {/* <div className={styles.tableListForm}>{this.renderForm()}</div> */}
+                        <div className={styles.tableListForm}>{this.renderForm()}</div>
                         <ExpListTable
                             loading={isLoading}
                             data={listData}

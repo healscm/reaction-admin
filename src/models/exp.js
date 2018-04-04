@@ -21,9 +21,8 @@ export default {
         },
         pageSize: 10,
         formValues: {
-            nickName: '',
+            name: '',
         },
-        // detail: {},
     },
 
     effects: {
@@ -35,7 +34,7 @@ export default {
             yield put({
                 type: 'setFormValues',
                 payload: {
-                    nickName: payload.nickName,
+                    name: payload.name,
                 },
             });
             yield put({
