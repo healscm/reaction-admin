@@ -76,6 +76,9 @@ export const getRouterData = (app) => {
         '/mini-program/user-list': {
             component: dynamicWrapper(app, ['userList'], () => import('../routes/MiniProgram/User/UserList')),
         },
+        '/mini-program/category-list': {
+            component: dynamicWrapper(app, ['category'], () => import('../routes/MiniProgram/Category/CategoryList')),
+        },
         '/mini-program/reaction-list': {
             component: dynamicWrapper(app, ['reaction'], () => import('../routes/MiniProgram/Reaction/ReactionList')),
         },

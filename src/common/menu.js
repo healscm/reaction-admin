@@ -127,6 +127,11 @@ const menuData = [
                 icon: 'user',
             },
             {
+                name: '症状类别列表',
+                path: 'category-list',
+                icon: 'user',
+            },
+            {
                 name: '症状列表',
                 path: 'reaction-list',
                 icon: 'user',

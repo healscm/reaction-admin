@@ -55,7 +55,7 @@ export default class TableForm extends PureComponent {
     remove(_id) {
         const newData = this.state.data.filter(item => item._id !== _id);
         this.setState({ data: newData });
-        this.props.onChange(newData);
+        this.props.onChange && this.props.onChange(newData, _id);
     }
 
     newMember = () => {
