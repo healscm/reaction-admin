@@ -1,16 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "sanbao-admin.name" . }}
+  name: {{ template "app.name" . }}
   labels:
-    app: {{ template "sanbao-admin.name" . }}
+    app: {{ template "app.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 {{- if .Values.service.annotations }}
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 -}}
-    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9ix2ows0w9jgma95pbo
 {{- end }}
 spec:
   type: {{ .Values.service.type }}
@@ -18,7 +17,7 @@ spec:
     - port: {{ .Values.service.externalPort }}
       targetPort: {{ .Values.service.internalPort }}
       protocol: TCP
-      name: {{ .Values.service.name }}
+      name: {{ template "app.name" . }}
   selector:
-    app: {{ template "sanbao-admin.name" . }}
+    app: {{ template "app.name" . }}
     release: {{ .Release.Name }}

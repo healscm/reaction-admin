@@ -43,14 +43,14 @@ steps:
   determine_env:
     description: Determine environment
     title: Determine environment
-    image: alpine:latest
+    image: busybox:latest
     commands:
       - echo NAMESPACE=$([[ $(echo "${{CF_BRANCH}}" | grep -Eo "^v[0-9]+\.") ]] && echo "production" || echo "staging") >> ${{CF_VOLUME_PATH}}/env_vars_to_export
       - echo IMAGE_NAME=registry-vpc.cn-shenzhen.aliyuncs.com/qtclinics/${{APP_NAME}} >> ${{CF_VOLUME_PATH}}/env_vars_to_export
 
   deploy_to_k8s:
     title: Deploy to k8s
-    image: xuhao/plugin-helm:latest
+    image: xuhao/plugin-helm:2.8.1
     environment:
       - CHART_NAME=pipeline/chart
       - RELEASE_NAME=${{APP_NAME}}-${{NAMESPACE}}

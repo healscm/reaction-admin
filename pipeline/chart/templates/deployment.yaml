@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "sanbao-admin.name" . }}
+  name: {{ template "app.name" . }}
   labels:
-    app: {{ template "sanbao-admin.name" . }}
+    app: {{ template "app.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "sanbao-admin.name" . }}
+        app: {{ template "app.name" . }}
         release: {{ .Release.Name }}
     spec:
       containers:
@@ -21,20 +21,20 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
-          # livenessProbe:
-          #   httpGet:
-          #     path: /health-check
-          #     port: {{ .Values.service.internalPort }}
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 30
-          #   timeoutSeconds: 5
-          # readinessProbe:
-          #   httpGet:
-          #     path: /health-check
-          #     port: {{ .Values.service.internalPort }}
-          #   initialDelaySeconds: 5
-          #   periodSeconds: 30
-          #   timeoutSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health-check
+              port: {{ .Values.service.internalPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /health-check
+              port: {{ .Values.service.internalPort }}
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 5
           resources:
       imagePullSecrets:
         - name: {{ .Values.image.pullSecrets }}

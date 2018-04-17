@@ -1,14 +1,12 @@
-# Default values for sanbao-admin.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: registry.qtclinics.com/sanbao-admin/v1.5.4
-  tag: 89f6210
+  repository: "TODO: set repository"
+  tag: "TODO: set tag"
   pullPolicy: IfNotPresent
   pullSecrets: alicloud-registry-key
 service:
-  name: sanbao-admin
   type: LoadBalancer
   externalPort: 443
   internalPort: 80
@@ -17,19 +15,7 @@ service:
     service.beta.kubernetes.io/alicloud-loadbalancer-CertID: 1811066757327101_161e4ddaf08_-543902569_14586787
     service.beta.kubernetes.io/alicloud-loadbalancer-ChargeType: paybytraffic
     service.beta.kubernetes.io/alicloud-loadbalancer-HealthCheckFlag: 'off'
-ingress:
-  enabled: false
-  # Used to create an Ingress record.
-  hosts:
-    - chart-example.local
-  annotations:
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-  tls:
-    # Secrets must be manually created in the namespace.
-    # - secretName: chart-example-tls
-    #   hosts:
-    #     - chart-example.local
+    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9ix2ows0w9jgma95pbo
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
