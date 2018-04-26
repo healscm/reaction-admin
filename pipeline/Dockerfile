@@ -1,4 +1,4 @@
-FROM xuhao/alpine-nginx-nodejs:8.9.3
+FROM xuhao/alpine-nginx-nodejs:8.11.1
 
 ENV HOME /home/deployment
 ENV APP_HOME $HOME/app
