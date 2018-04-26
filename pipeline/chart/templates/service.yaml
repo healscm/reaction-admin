@@ -10,6 +10,11 @@ metadata:
 {{- if .Values.service.annotations }}
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 -}}
+{{- if eq .Release.Namespace "production" -}}
+    service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9tr5nxsb0g00kqnyr9h
+{{- else if eq .Release.Namespace "staging" -}}
+    # service.beta.kubernetes.io/alicloud-loadbalancer-id: lb-wz9atvq2jvr3drm9jvjy9
+{{- end -}}
 {{- end }}
 spec:
   type: {{ .Values.service.type }}
