@@ -27,7 +27,7 @@ export default class ReactionListTable extends StandardTable {
                 width: '120px',
                 render: (text, record) => (
                     <div>
-                        <Link to={`/mini-program/reaction-editor/${record._id}`}>编辑</Link>
+                        <Link to={`/az/reaction-editor/${record._id}`}>编辑</Link>
                         <Divider type="vertical" />
                         <Popconfirm
                             title="是否要删除此行数据？"

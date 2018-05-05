@@ -88,7 +88,7 @@ export default {
             }
         },
         // *create(_, { put }) {
-        //     yield put(routerRedux.push('/mini-program/reaction-editor/add'));
+        //     yield put(routerRedux.push('/az/reaction-editor/add'));
         // },
         // *clearDetail(_, { put }) {
         //     yield put({

@@ -73,20 +73,20 @@ export const getRouterData = (app) => {
         '/': {
             component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
         },
-        '/mini-program/user-list': {
-            component: dynamicWrapper(app, ['userList'], () => import('../routes/MiniProgram/User/UserList')),
+        '/az/user-list': {
+            component: dynamicWrapper(app, ['userList'], () => import('../routes/AZ/User/UserList')),
         },
-        '/mini-program/category-list': {
-            component: dynamicWrapper(app, ['category'], () => import('../routes/MiniProgram/Category/CategoryList')),
+        '/az/category-list': {
+            component: dynamicWrapper(app, ['category'], () => import('../routes/AZ/Category/CategoryList')),
         },
-        '/mini-program/reaction-list': {
-            component: dynamicWrapper(app, ['reaction'], () => import('../routes/MiniProgram/Reaction/ReactionList')),
+        '/az/reaction-list': {
+            component: dynamicWrapper(app, ['reaction'], () => import('../routes/AZ/Reaction/ReactionList')),
         },
-        '/mini-program/reaction-editor/:_id': {
-            component: dynamicWrapper(app, ['reaction'], () => import('../routes/MiniProgram/Reaction/ReactionEditor')),
+        '/az/reaction-editor/:_id': {
+            component: dynamicWrapper(app, ['reaction'], () => import('../routes/AZ/Reaction/ReactionEditor')),
         },
-        '/mini-program/exp-list': {
-            component: dynamicWrapper(app, ['exp'], () => import('../routes/MiniProgram/Exp/ExpList')),
+        '/az/exp-list': {
+            component: dynamicWrapper(app, ['exp'], () => import('../routes/AZ/Exp/ExpList')),
         },
         '/exception/403': {
             component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),
