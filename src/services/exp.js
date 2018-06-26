@@ -17,6 +17,6 @@ export async function remove(_id) {
     return get(`/admin/api/remove_reaction_exp/${_id}`);
 }
 
-// export async function add(params) {
-//     return post('/admin/api/add_exp', params);
-// }
+export async function check(_id, legal) {
+    return get(`/admin/api/check_reaction_exp/${_id}/${legal === true ? 1 : -1}`);
+}
