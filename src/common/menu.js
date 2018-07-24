@@ -143,33 +143,33 @@ const menuData = [
             },
         ],
     },
-    {
-        name: '小程序',
-        icon: 'wechat',
-        path: 'mini-program',
-        children: [
-            {
-                name: '用户列表',
-                path: 'user-list',
-                icon: 'user',
-            },
-            {
-                name: '症状类别列表',
-                path: 'category-list',
-                icon: 'appstore-o',
-            },
-            {
-                name: '症状列表',
-                path: 'reaction-list',
-                icon: 'bars',
-            },
-            {
-                name: '患友经验列表',
-                path: 'exp-list',
-                icon: 'exception',
-            },
-        ],
-    },
+    // {
+    //     name: '小程序',
+    //     icon: 'wechat',
+    //     path: 'mini-program',
+    //     children: [
+    //         {
+    //             name: '用户列表',
+    //             path: 'user-list',
+    //             icon: 'user',
+    //         },
+    //         {
+    //             name: '症状类别列表',
+    //             path: 'category-list',
+    //             icon: 'appstore-o',
+    //         },
+    //         {
+    //             name: '症状列表',
+    //             path: 'reaction-list',
+    //             icon: 'bars',
+    //         },
+    //         {
+    //             name: '患友经验列表',
+    //             path: 'exp-list',
+    //             icon: 'exception',
+    //         },
+    //     ],
+    // },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {

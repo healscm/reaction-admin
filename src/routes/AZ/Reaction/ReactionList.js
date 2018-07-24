@@ -14,6 +14,7 @@ const FIND_FIELDS = {
     id: 1,
     name: 1,
     des: 1,
+    is_recordable: 1,
 };
 
 @connect(state => ({
@@ -91,6 +92,25 @@ export default class ReactionList extends PureComponent {
         });
     };
 
+    handleRecordable = (_id, recordable) => {
+        this.props.dispatch({
+            type: 'reaction/update',
+            payload: {
+                data: { is_recordable: !!recordable },
+                _id,
+            },
+            callback: () => {
+                this.props.dispatch({
+                    type: 'reaction/updateRecordable',
+                    payload: {
+                        _id,
+                        is_recordable: !!recordable,
+                    },
+                });
+            },
+        });
+    }
+
     renderForm() {
         const { form: { getFieldDecorator }, reaction: { listData: { category } } } = this.props;
         return (
@@ -153,6 +173,7 @@ export default class ReactionList extends PureComponent {
                             data={listData}
                             onChange={this.handleTableChange}
                             onRemove={this.handleTableRemove}
+                            onSetRecordable={this.handleRecordable}
                         />
                     </div>
                 </Card>
