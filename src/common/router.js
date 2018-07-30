@@ -73,20 +73,26 @@ export const getRouterData = (app) => {
         '/': {
             component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
         },
-        '/az/user-list': {
-            component: dynamicWrapper(app, ['userList'], () => import('../routes/AZ/User/UserList')),
+        '/reaction/user-list': {
+            component: dynamicWrapper(app, ['userList'], () => import('../routes/Reaction/User/UserList')),
         },
-        '/az/category-list': {
-            component: dynamicWrapper(app, ['category'], () => import('../routes/AZ/Category/CategoryList')),
+        '/reaction/category-list': {
+            component: dynamicWrapper(app, ['category'], () => import('../routes/Reaction/Category/CategoryList')),
         },
-        '/az/reaction-list': {
-            component: dynamicWrapper(app, ['reaction'], () => import('../routes/AZ/Reaction/ReactionList')),
+        '/reaction/reaction-list': {
+            component: dynamicWrapper(app, ['reaction'], () => import('../routes/Reaction/Reaction/ReactionList')),
         },
-        '/az/reaction-editor/:_id': {
-            component: dynamicWrapper(app, ['reaction'], () => import('../routes/AZ/Reaction/ReactionEditor')),
+        '/reaction/reaction-editor/:_id': {
+            component: dynamicWrapper(app, ['reaction'], () => import('../routes/Reaction/Reaction/ReactionEditor')),
         },
-        '/az/exp-list': {
-            component: dynamicWrapper(app, ['exp'], () => import('../routes/AZ/Exp/ExpList')),
+        '/reaction/exp-list': {
+            component: dynamicWrapper(app, ['exp'], () => import('../routes/Reaction/Exp/ExpList')),
+        },
+        '/admin/client-list': {
+            component: dynamicWrapper(app, ['client'], () => import('../routes/Admin/Client/ClientList')),
+        },
+        '/admin/client-editor/:_id': {
+            component: dynamicWrapper(app, ['reaction'], () => import('../routes/Admin/Client/ClientEditor')),
         },
         '/exception/403': {
             component: dynamicWrapper(app, [], () => import('../routes/Exception/403')),

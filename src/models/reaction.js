@@ -106,7 +106,7 @@ export default {
             }
         },
         *create(_, { put }) {
-            yield put(routerRedux.push('/az/reaction-editor/add'));
+            yield put(routerRedux.push('/Reaction/reaction-editor/add'));
         },
         *tagChange({ payload }, { put }) {
             yield put({
