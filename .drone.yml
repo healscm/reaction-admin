@@ -6,17 +6,10 @@ pipeline:
   testbuild:
     image: plugins/docker
     dockerfile: pipeline/Dockerfile
-    
-  publish:
-      image: plugins/docker
-      registry: registry.cn-shenzhen.aliyuncs.com/qtc_test/# 仓库
-      repo: reaction-admin # docker仓库地址
-      # mirror: https://docker.mirrors.ustc.edu.cn
-      # 需要使用drone cli添加secrets: http://docs.drone.io/manage-secrets/
-      secrets: [ docker_username, docker_password ]
-      tags:
-        - 0.0.1
-
+    repo: registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin
+    registry: reaction-admin
+    secrets: [ docker_username, docker_password ]
+  
   deploy:
       image: reaction-admin
       commands:
