@@ -8,7 +8,7 @@ pipeline:
     commands:
       - cd /home/app
       - pwd
- branches: master
+
   publish:
       image: plugins/docker
       registry: registry.cn-shenzhen.aliyuncs.com/qtc_test/# 仓库
