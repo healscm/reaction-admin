@@ -3,7 +3,7 @@ workspace:
   path: app
 
 pipeline:
-slack:
+  slack:
     image: plugins/slack
     channel: docker_build
     when:
