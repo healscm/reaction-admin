@@ -1,0 +1,38 @@
+workspace:
+  base: /home
+  path: src
+
+pipeline:
+  build:
+    image: golang:1.9
+    commands:
+      - pwd
+      - go env
+      - go version
+      - go build
+
+  publish:
+      image: plugins/docker
+      registry: https://index.docker.io/v1/ # 仓库
+      repo: bysir/golang_base # docker仓库地址
+      # mirror: https://docker.mirrors.ustc.edu.cn
+      # 需要使用drone cli添加secrets: http://docs.drone.io/manage-secrets/
+      secrets: [ docker_username, docker_password ]
+      tags:
+        - latest
+
+  deploy:
+      image: appleboy/drone-ssh
+      host: 47.94.204.137
+      username: root
+      port: 22
+      secrets: [ ssh_key ]
+      script:
+        - cd /root/app
+        - docker-compose pull bysir/golang_base
+        - docker-compose up
+
+作者：bysir
+链接：https://www.jianshu.com/p/1e5f819f8881
+來源：简书
+简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
