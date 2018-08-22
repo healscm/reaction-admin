@@ -3,7 +3,7 @@ workspace:
   path: app
 
 pipeline:
-    docker_build:
+    build:
     image: plugins/docker
     dockerfile: pipeline/Dockerfile
     repo: registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin
