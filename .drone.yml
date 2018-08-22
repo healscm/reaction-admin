@@ -1,15 +1,13 @@
 workspace:
   base: /home
-  path: src
+  path: app
 
 pipeline:
   build:
-    image: golang:1.9
+    image: plugins/docker
     commands:
-      - pwd
-      - go env
-      - go version
-      - go build
+      - cd /home/app
+      - docker build -t reaction-admin -f pipline/Docerfile .
 
   publish:
       image: plugins/docker
@@ -28,11 +26,6 @@ pipeline:
       port: 22
       secrets: [ ssh_key ]
       script:
-        - cd /root/app
+        - cd /home/app
         - docker-compose pull bysir/golang_base
         - docker-compose up
-
-作者：bysir
-链接：https://www.jianshu.com/p/1e5f819f8881
-來源：简书
-简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。
