@@ -6,9 +6,8 @@ pipeline:
   docker_build:
     image: plugins/docker
     dockerfile: pipeline/Dockerfile
-    repo: registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin
-    registry: reaction-admin
-    secrets: [ docker_username, docker_password ]
+    repo: reaction-admin
+    tags: true
   
   deploy:
       image: reaction-admin
