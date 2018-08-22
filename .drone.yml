@@ -7,7 +7,7 @@ pipeline:
     image: plugins/docker
     dockerfile: pipeline/Dockerfile
     repo: reaction-admin
-    tags: true
+    auto_tag: true
   
   deploy:
       image: reaction-admin
