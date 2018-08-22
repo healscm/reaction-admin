@@ -7,7 +7,7 @@ pipeline:
     image: plugins/docker
     commands:
       - cd /home/app
-      - docker build -t reaction-admin -f pipline/Docerfile .
+      - docker build -t reaction-admin -f pipeline/Docerfile .
 
   publish:
       image: plugins/docker
