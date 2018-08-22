@@ -24,10 +24,10 @@ export default class ReactionListTable extends StandardTable {
             },
             {
                 title: '操作',
-                width: '120px',
+                width: '220px',
                 render: (text, record) => (
                     <div>
-                        <Link to={`/mini-program/reaction-editor/${record._id}`}>编辑</Link>
+                        <Link to={`/Reaction/reaction-editor/${record._id}`}>编辑</Link>
                         <Divider type="vertical" />
                         <Popconfirm
                             title="是否要删除此行数据？"
@@ -35,6 +35,14 @@ export default class ReactionListTable extends StandardTable {
                         >
                             <a>删除</a>
                         </Popconfirm>
+                        <Divider type="vertical" />
+                        {
+                            record.is_recordable ? (
+                                <a onClick={() => this.props.onSetRecordable(record._id, false)}>设为不可记录</a>
+                            ) : (
+                                <a onClick={() => this.props.onSetRecordable(record._id, true)}>设为可记录</a>
+                            )
+                        }
                     </div>
                 ),
             },

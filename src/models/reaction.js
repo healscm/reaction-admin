@@ -64,11 +64,16 @@ export default {
                 message.error(response.data);
             }
         },
-        *update({ payload }, { call }) {
-            payload.data.doctor_plan = payload.data.doctor_plan.map((item) => (item.content)); // eslint-disable-line
-            payload.data.serious_symptom = payload.data.serious_symptom.map((item) => (item.content)); // eslint-disable-line
+        *update({ payload, callback }, { call }) {
+            if (payload.data.doctor_plan) {
+                payload.data.doctor_plan = payload.data.doctor_plan.map((item) => (item.content)); // eslint-disable-line
+            }
+            if (payload.data.serious_symptom) {
+                payload.data.serious_symptom = payload.data.serious_symptom.map((item) => (item.content)); // eslint-disable-line
+            }
             const response = yield call(update, payload);
             if (response.success) {
+                callback && callback();
                 message.success('保存成功');
             } else {
                 message.error(response.data);
@@ -101,7 +106,7 @@ export default {
             }
         },
         *create(_, { put }) {
-            yield put(routerRedux.push('/mini-program/reaction-editor/add'));
+            yield put(routerRedux.push('/Reaction/reaction-editor/add'));
         },
         *tagChange({ payload }, { put }) {
             yield put({
@@ -125,6 +130,12 @@ export default {
             } else {
                 message.error(response.data);
             }
+        },
+        *updateRecordable({ payload }, { put }) {
+            yield put({
+                type: 'setRecordable',
+                payload,
+            });
         },
     },
 
@@ -196,6 +207,22 @@ export default {
             return {
                 ...state,
                 category: payload,
+            };
+        },
+        setRecordable(state, { payload }) {
+            const list = [...state.listData.list];
+            for (let i = 0; i < list.length; i += 1) {
+                if (list[i]._id === payload._id) {
+                    list[i].is_recordable = payload.is_recordable;
+                    break;
+                }
+            }
+            return {
+                ...state,
+                listData: {
+                    ...state.listData,
+                    list,
+                },
             };
         },
     },

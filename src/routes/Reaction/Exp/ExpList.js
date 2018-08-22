@@ -1,12 +1,13 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Form, Row, Col, Button, Input } from 'antd';
+import { Card, Form, Row, Col, Button, Input, Select } from 'antd';
 import ExpListTable from './ExpListTable';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 import styles from '../../style.less';
 
 const FormItem = Form.Item;
+const { Option } = Select;
 
 @connect(state => ({
     exp: state.exp,
@@ -17,6 +18,7 @@ export default class ExpList extends PureComponent {
         const { exp: { formValues }, form: { setFieldsValue } } = this.props;
         setFieldsValue({
             name: formValues.name,
+            status: formValues.status,
         });
         this.handleSearch();
     }
@@ -50,6 +52,17 @@ export default class ExpList extends PureComponent {
                 data: {
                     is_excellent: !!val,
                 },
+            },
+        });
+    }
+
+    handleExpChecn = (_id, legal) => {
+        const { dispatch } = this.props;
+        dispatch({
+            type: 'exp/check',
+            payload: {
+                _id,
+                legal,
             },
         });
     }
@@ -97,6 +110,26 @@ export default class ExpList extends PureComponent {
                         </FormItem>
                     </Col>
                     <Col md={8} sm={24}>
+                        <FormItem label="审核状态">
+                            {getFieldDecorator('status')(
+                                <Select>
+                                    <Option value={100}>
+                                        所有状态
+                                    </Option>
+                                    <Option value={0}>
+                                        待审核
+                                    </Option>
+                                    <Option value={1}>
+                                        已通过
+                                    </Option>
+                                    <Option value={-1}>
+                                        未通过
+                                    </Option>
+                                </Select>
+                            )}
+                        </FormItem>
+                    </Col>
+                    <Col md={8} sm={24}>
                         <span className={styles.submitButtons}>
                             <Button type="primary" htmlType="submit">
                                 查询
@@ -124,6 +157,7 @@ export default class ExpList extends PureComponent {
                             onChange={this.handleTableChange}
                             onRemove={this.handleTableRemove}
                             onSetExcellent={this.handleSetExcellent}
+                            onCheck={this.handleExpChecn}
                         />
                     </div>
                 </Card>

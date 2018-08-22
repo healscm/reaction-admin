@@ -33,9 +33,25 @@ export default class ExpListTable extends StandardTable {
             // },
             {
                 title: '操作',
-                width: '180px',
+                width: '260px',
                 render: (text, record) => (
                     <div>
+                        {
+                            record.status === 0 && <a onClick={() => this.props.onCheck(record._id, false)}>不通过</a>
+                        }
+                        {
+                            record.status === 0 && <Divider type="vertical" />
+                        }
+                        {
+                            record.status === 0 && <a onClick={() => this.props.onCheck(record._id, true)}>通过</a>
+                        }
+                        {
+                            record.status === 1 && <a onClick={() => this.props.onCheck(record._id, false)}>不通过</a>
+                        }
+                        {
+                            record.status === -1 && <a onClick={() => this.props.onCheck(record._id, true)}>通过</a>
+                        }
+                        <Divider type="vertical" />
                         {
                             record.is_excellent ? (
                                 <a onClick={() => this.props.onSetExcellent(record._id, false)}>移出精选</a>

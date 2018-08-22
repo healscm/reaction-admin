@@ -2,7 +2,7 @@ import { message } from 'antd';
 // import { routerRedux } from 'dva/router';
 import {
     find,
-    // detail,
+    check,
     update,
     remove,
 } from '../services/exp';
@@ -22,6 +22,7 @@ export default {
         pageSize: 10,
         formValues: {
             name: '',
+            status: 100,
         },
     },
 
@@ -35,6 +36,7 @@ export default {
                 type: 'setFormValues',
                 payload: {
                     name: payload.name,
+                    status: payload.status,
                 },
             });
             yield put({
@@ -87,9 +89,18 @@ export default {
                 message.error(response.data);
             }
         },
-        // *create(_, { put }) {
-        //     yield put(routerRedux.push('/mini-program/reaction-editor/add'));
-        // },
+        *check({ payload }, { call, put }) {
+            const response = yield call(check, payload._id, payload.legal);
+            if (response.success) {
+                yield put({
+                    type: 'updateListData',
+                    payload: response.data,
+                });
+                message.success('修改成功');
+            } else {
+                message.error(response.data);
+            }
+        },
         // *clearDetail(_, { put }) {
         //     yield put({
         //         type: 'setDetail',
