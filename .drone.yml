@@ -11,11 +11,5 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     tags:
       - latest
-      
-  deploy:
-      image: reaction-admin
-      commands:
-      script:
-        - cd /home/app
-        - pwd
-        - echo "hello world"
+ branches: develop
+
