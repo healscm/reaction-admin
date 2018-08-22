@@ -5,10 +5,8 @@ workspace:
 pipeline:
   testbuild:
     image: plugins/docker
-    commands:
-      - cd /home/app
-      - pwd
-
+    dockerfile: pipeline/Dockerfile
+    
   publish:
       image: plugins/docker
       registry: registry.cn-shenzhen.aliyuncs.com/qtc_test/# 仓库
