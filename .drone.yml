@@ -11,21 +11,18 @@ pipeline:
 
   publish:
       image: plugins/docker
-      registry: https://index.docker.io/v1/ # 仓库
-      repo: bysir/golang_base # docker仓库地址
+      registry: registry.cn-shenzhen.aliyuncs.com/qtc_test/# 仓库
+      repo: reaction-admin # docker仓库地址
       # mirror: https://docker.mirrors.ustc.edu.cn
       # 需要使用drone cli添加secrets: http://docs.drone.io/manage-secrets/
       secrets: [ docker_username, docker_password ]
       tags:
-        - latest
+        - 0.0.1
 
   deploy:
-      image: appleboy/drone-ssh
-      host: 47.94.204.137
-      username: root
-      port: 22
-      secrets: [ ssh_key ]
+      image: reaction-admin
+      commands:
       script:
         - cd /home/app
-        - docker-compose pull bysir/golang_base
-        - docker-compose up
+        - pwd
+        - echo "hello world"
