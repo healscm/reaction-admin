@@ -1,1 +1,14 @@
+workspace:
+  base: /home
+  path: app
 
+pipeline:
+  docker_build :
+    image: plugins/docker
+    dockerfile: pipeline/Dockerfile
+    registry: registry.cn-shenzhen.aliyuncs.com 
+    repo: registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin 
+    secrets: [ docker_username, docker_password ]
+    tags:
+      - latest
+ branches: develop
