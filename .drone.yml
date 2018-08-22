@@ -12,7 +12,6 @@ pipeline:
 trigger:
   branch:
   - master
-  event:
-  - push
+  
   
  
