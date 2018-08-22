@@ -3,6 +3,11 @@ workspace:
   path: app
 
 pipeline:
+slack:
+    image: plugins/slack
+    channel: docker_build
+    when:
+      branch: develop
   docker_build :
     image: plugins/docker
     dockerfile: pipeline/Dockerfile
@@ -11,4 +16,4 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     tags:
       - latest
- branches: develop
+ 
