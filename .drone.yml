@@ -3,7 +3,7 @@ workspace:
   path: app
 
 pipeline:
-  build:
+  testbuild:
     image: plugins/docker
     commands:
       - cd /home/app
