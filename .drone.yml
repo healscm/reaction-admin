@@ -15,7 +15,7 @@ trigger:
   event:
   - push
   
-- docker_build :
+ docker_build :
     image: plugins/docker
     dockerfile: pipeline/Dockerfile
     registry: registry.cn-shenzhen.aliyuncs.com 
