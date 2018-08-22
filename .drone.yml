@@ -3,7 +3,7 @@ workspace:
   path: app
 
 pipeline:
-- build:
+  build:
     image: golang
     commands:
     - go build
