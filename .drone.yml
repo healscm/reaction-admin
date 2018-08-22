@@ -5,7 +5,7 @@ workspace:
 pipeline:
   slack:
     image: plugins/slack
-    channel: docker_build
+    channel: dev
     when:
       branch: develop
   docker_build :
