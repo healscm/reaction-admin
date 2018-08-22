@@ -3,6 +3,17 @@ workspace:
   path: app
 
 pipeline:
+- build:
+    image: golang
+    commands:
+    - go build
+    - go test
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
 - docker_build :
     image: plugins/docker
     dockerfile: pipeline/Dockerfile
@@ -11,9 +22,3 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     tags:
       - latest
-trigger:
-  branch:
-  - master
-  event:
-  - push
- 
