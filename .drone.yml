@@ -3,12 +3,7 @@ workspace:
   path: app
 
 pipeline:
-  slack:
-    image: plugins/slack
-    channel: dev
-    when:
-      branch: develop
-  docker_build :
+- docker_build :
     image: plugins/docker
     dockerfile: pipeline/Dockerfile
     registry: registry.cn-shenzhen.aliyuncs.com 
@@ -16,4 +11,9 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     tags:
       - latest
+trigger:
+  branch:
+  - master
+  event:
+  - push
  
