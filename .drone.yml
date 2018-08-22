@@ -8,7 +8,7 @@ pipeline:
     commands:
       - cd /home/app
       - docker build -t reaction-admin -f pipeline/Docerfile .
-
+ branches: develop
   publish:
       image: plugins/docker
       registry: registry.cn-shenzhen.aliyuncs.com/qtc_test/# 仓库
