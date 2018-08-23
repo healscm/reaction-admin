@@ -14,6 +14,6 @@ pipeline:
     script:
       - service docker start
       - docker  pull registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin:latest
-      - docker-compose  rm -f reaction-admin || true # 因如果不存在，rm会报错
+      - docker  rm -f reaction-admin || true # 因如果不存在，rm会报错
       - docker run -d -p 8065:8065 --name reaction-admin registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin
  
