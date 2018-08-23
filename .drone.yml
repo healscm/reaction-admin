@@ -3,6 +3,14 @@ workspace:
   path: app
 
 pipeline:
+  docker_build_and_push :
+    image: plugins/docker
+    dockerfile: pipeline/Dockerfile
+    registry: registry.cn-shenzhen.aliyuncs.com 
+    repo: registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin 
+    secrets: [ docker_username, docker_password ]
+    tags:
+      - latest
   deploy:
     image: appleboy/drone-ssh # 用于连接服务器
     host:
