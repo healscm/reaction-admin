@@ -22,6 +22,6 @@ pipeline:
     script:
       - docker pull registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin:latest
       - docker pull repo_url:latest
-      - docker rm -f reaction-admin || true # 这里这样是因为如果不存在docker-demo，rm会报错
+      - docker rm -f reaction-admin || true # 因为如果不存在，rm会报错
       - docker run -d -p 8065:8065 --name docker-demo repo_url
  
