@@ -11,3 +11,13 @@ pipeline:
     secrets: [ docker_username, docker_password ]
     tags:
       - latest
+  deploy-latest:
+    image: registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin:latest
+    pull: true
+    environment:
+      - DOCKER_LAUNCH_DEBUG=true
+      - TAG=latest
+    secrets: [ ssh_key, jumpserver_host, jumpserver_port, sandbox_host ]
+    debug: true
+    when:
+      branch: dev
