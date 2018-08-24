@@ -1,9 +1,7 @@
 workspace:
   base: /home
   path: app
-  when:
-    branch: [master]
-    event: [push]
+  
 pipeline:
   docker_build_and_push :
     image: plugins/docker
