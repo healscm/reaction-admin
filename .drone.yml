@@ -22,7 +22,7 @@ pipeline:
       - docker  pull registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin:latest
       - docker  rm -f reaction-admin || true # 因如果不存在，rm会报错
       - docker run -d -p 8065:8065 --name reaction-admin registry.cn-shenzhen.aliyuncs.com/qtc_test/reaction-admin
-      - docker ps 
+      - docker ps ##
     when:
       branch: [master]
       event: [push]
