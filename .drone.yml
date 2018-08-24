@@ -26,6 +26,6 @@ pipeline:
       - docker ps | grep reaction-admin 
       - [ $? == 1 ] || exit ; 
     when:
-    branch: [master]
-    event: [push]
+      branch: [master]
+      event: [push]
  
